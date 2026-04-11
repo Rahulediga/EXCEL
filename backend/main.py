@@ -49,10 +49,11 @@ app = FastAPI(
 )
 
 # Allow all origins in production (Render frontend URL will be set via env var)
-allowed_origins = os.environ.get(
+raw_origins = os.environ.get(
     "ALLOWED_ORIGINS",
     "http://localhost:5173,http://127.0.0.1:5173"
-).split(",")
+)
+allowed_origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
 
 app.add_middleware(
     CORSMiddleware,
