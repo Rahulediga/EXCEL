@@ -1,0 +1,136 @@
+.bin-card {
+  padding: 20px;
+  cursor: pointer;
+  animation: fadeInUp 0.5s ease-out both;
+  transition: all var(--transition-base);
+}
+
+.bin-card.alert {
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.bin-card.offline {
+  opacity: 0.6;
+}
+
+.bin-card:hover {
+  transform: translateY(-3px);
+}
+
+.bin-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.bin-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.bin-id {
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  font-family: monospace;
+}
+
+.bin-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.bin-status-badge.online {
+  background: var(--eco-wet-bg);
+  color: var(--eco-wet);
+}
+
+.bin-status-badge.alert {
+  background: var(--eco-danger-bg);
+  color: var(--eco-danger);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.bin-status-badge.offline {
+  background: var(--bg-input);
+  color: var(--text-tertiary);
+}
+
+.bin-fill-section {
+  margin-bottom: 16px;
+}
+
+.bin-fill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.bin-fill-value {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.bin-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.bin-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.73rem;
+  color: var(--text-tertiary);
+}
+
+.bin-meta-item svg {
+  flex-shrink: 0;
+}
+
+.bin-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-secondary);
+}
+
+.bin-breakdown {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  width: 100%;
+}
+
+.breakdown-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.breakdown-item .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot.wet { background: var(--eco-wet); }
+.dot.dry { background: var(--eco-dry); }
+.dot.metal { background: var(--eco-metal); }

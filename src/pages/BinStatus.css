@@ -1,0 +1,112 @@
+/* Bin Status Page */
+.bin-status-overview {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.status-chip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.status-chip:hover {
+  transform: translateY(-2px);
+}
+
+.status-chip-icon {
+  color: var(--text-secondary);
+}
+
+.status-chip.online .status-chip-icon { color: var(--eco-success); }
+.status-chip.alert .status-chip-icon { color: var(--eco-danger); }
+.status-chip.offline .status-chip-icon { color: var(--text-tertiary); }
+
+.status-chip-count {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.status-chip-label {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+/* Controls */
+.bin-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.bin-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-sm);
+  color: var(--text-tertiary);
+  flex: 1;
+  max-width: 320px;
+}
+
+.bin-search input {
+  border: none;
+  background: none;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  outline: none;
+  width: 100%;
+}
+
+.bin-search input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.bin-filter-group {
+  display: flex;
+  gap: 4px;
+  background: var(--glass-bg);
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-secondary);
+}
+
+/* Bins Grid */
+.bins-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 1024px) {
+  .bin-status-overview {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bin-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .bin-search {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .bin-status-overview {
+    grid-template-columns: 1fr 1fr;
+  }
+  .bins-grid {
+    grid-template-columns: 1fr;
+  }
+}
