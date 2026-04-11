@@ -4,6 +4,7 @@ FastAPI + Exponential Smoothing (Holt-Winters) + Firebase Realtime Database
 """
 
 import os
+import json
 import logging
 from datetime import datetime, timedelta
 
@@ -21,10 +22,22 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(
 logger = logging.getLogger("ecowaste-ml")
 
 # -- Firebase Init ----------------------------------------------------------
-cred_path = os.path.join(os.path.dirname(__file__), "serviceAccountKey.json")
-cred = credentials.Certificate(cred_path)
+# Support both local file and Render environment variable
+firebase_creds_json = os.environ.get("FIREBASE_CREDENTIALS")
+
+if firebase_creds_json:
+    # Running on Render: credentials come from environment variable
+    cred_dict = json.loads(firebase_creds_json)
+    cred = credentials.Certificate(cred_dict)
+    logger.info("[FIREBASE] Using credentials from environment variable")
+else:
+    # Running locally: credentials come from file
+    cred_path = os.path.join(os.path.dirname(__file__), "serviceAccountKey.json")
+    cred = credentials.Certificate(cred_path)
+    logger.info("[FIREBASE] Using credentials from local file")
+
 firebase_admin.initialize_app(cred, {
-    "databaseURL": "https://devoops-fc055-default-rtdb.firebaseio.com"
+    "databaseURL": os.environ.get("FIREBASE_DB_URL", "https://devoops-fc055-default-rtdb.firebaseio.com")
 })
 logger.info("[FIREBASE] Admin SDK initialized")
 
@@ -35,9 +48,15 @@ app = FastAPI(
     version="1.0.0",
 )
 
+# Allow all origins in production (Render frontend URL will be set via env var)
+allowed_origins = os.environ.get(
+    "ALLOWED_ORIGINS",
+    "http://localhost:5173,http://127.0.0.1:5173"
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

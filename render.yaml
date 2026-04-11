@@ -1,0 +1,39 @@
+# Render Deployment Blueprint
+# https://render.com/docs/blueprint-spec
+
+services:
+  # ---- Backend: Python Web Service ----
+  - type: web
+    name: ecowaste-backend
+    runtime: python
+    region: oregon
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: FIREBASE_CREDENTIALS
+        sync: false  # Set manually in Render dashboard
+      - key: FIREBASE_DB_URL
+        value: https://devoops-fc055-default-rtdb.firebaseio.com
+      - key: ALLOWED_ORIGINS
+        sync: false  # Set to your frontend URL after deploying
+      - key: PYTHON_VERSION
+        value: "3.11.6"
+
+  # ---- Frontend: Static Site ----
+  - type: web
+    name: ecowaste-frontend
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false  # Set to your backend URL after deploying
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

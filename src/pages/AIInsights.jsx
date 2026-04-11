@@ -11,7 +11,7 @@ import {
 import { useDatabase } from '../context/DatabaseContext';
 import './AIInsights.css';
 
-const API_URL = 'http://127.0.0.1:8000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload) return null;
