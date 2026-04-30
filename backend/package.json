@@ -1,0 +1,15 @@
+{
+  "name": "ecowaste-email-service",
+  "version": "1.0.0",
+  "description": "EcoWaste critical alert email notification service",
+  "main": "email-server.js",
+  "scripts": {
+    "start": "node email-server.js",
+    "dev": "node email-server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "nodemailer": "^6.9.0",
+    "cors": "^2.8.5"
+  }
+}

@@ -7,6 +7,12 @@
   margin-bottom: 24px;
 }
 
+.reports-header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .reports-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -98,6 +104,124 @@
   font-size: 0.78rem;
 }
 
+/* ── Spinner for loading states ── */
+.spin-icon {
+  animation: spin-anim 0.8s linear infinite;
+}
+
+@keyframes spin-anim {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Success flash on Export PDF ── */
+.btn-success-flash {
+  background: #10b981 !important;
+  color: #fff !important;
+  border-color: #10b981 !important;
+  pointer-events: none;
+  animation: flash-pop 0.35s ease-out;
+}
+
+@keyframes flash-pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* ── Email Report button (per card) ── */
+.btn-email-sm {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-email-sm:hover {
+  background: linear-gradient(135deg, #818cf8, #6366f1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+}
+
+/* Email sent small (per card) */
+.btn-email-sent-sm {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  cursor: default;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  pointer-events: none;
+  animation: flash-pop 0.35s ease-out;
+}
+
+/* ── Email All Reports button (top bar) ── */
+.btn-email-report {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-email-report:hover {
+  background: linear-gradient(135deg, #818cf8, #6366f1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+}
+
+.btn-email-report:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Email sent state */
+.btn-email-sent {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: default;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  pointer-events: none;
+  animation: flash-pop 0.35s ease-out;
+}
+
+/* ── Disabled button state ── */
+.btn:disabled,
+.btn-sm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
   .reports-list {
     grid-template-columns: 1fr;
@@ -105,5 +229,8 @@
   .reports-controls {
     flex-direction: column;
     align-items: stretch;
+  }
+  .reports-header-actions {
+    flex-wrap: wrap;
   }
 }
